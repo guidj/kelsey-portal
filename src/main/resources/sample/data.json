@@ -1,0 +1,33 @@
+[
+	{
+		"disease": 	{
+			"cui": "C100",
+			"name": "ictus"
+		},
+		"indications": [
+			{
+				"cui": "T400",
+				"name": "fever",
+				"type": "SIGN"
+			}
+		]
+	},
+	{
+		"disease": {
+			"cui": "C101",
+			"name": "jondis"
+		},
+		"indications": [
+			{
+				"cui": "T401",
+				"name": "concussion",
+				"type": "fndg"
+			},
+			{
+				"cui": "T403",
+				"name": "chills",
+				"type": "sosy"
+			}		
+		]	
+	}
+]
