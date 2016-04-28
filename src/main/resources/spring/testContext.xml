@@ -16,16 +16,16 @@
 
 	<context:spring-configured/>
     <context:annotation-config/>
-    <context:component-scan base-package="org.dsc.deseametry" />
+    <context:component-scan base-package="org.dsc.diseametry" />
 
     <neo4j:config storeDirectory="target/neo4j-db-test"
-                  base-package="org.dsc.deseametry.domain" />
+                  base-package="org.dsc.diseametry.domain" />
  
-    <neo4j:repositories base-package="org.dsc.deseametry.repositories"/>
+    <neo4j:repositories base-package="org.dsc.diseametry.repositories"/>
     <tx:annotation-driven />
 
     <beans>
-<!--     	<bean id="diseaseRepo" class="org.dsc.deseametry">
+<!--     	<bean id="diseaseRepo" class="org.dsc.diseametry">
     	</bean>
  -->        
 		<!--<bean id="graphDatabaseService" class="org.neo4j.kernel.EmbeddedGraphDatabase"

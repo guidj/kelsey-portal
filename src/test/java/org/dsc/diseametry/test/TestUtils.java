@@ -1,4 +1,4 @@
-package org.dsc.deseametry.test;
+package org.dsc.diseametry.test;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -1,8 +1,9 @@
-package org.dsc.deseametry.test;
+package org.dsc.diseametry.test;
 
 import java.io.File;
 
-import org.dsc.deseametry.DbContext;
+import org.dsc.diseametry.DbContext;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -12,7 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextHierarchy({ @ContextConfiguration("file:src/main/resources/spring/testContext.xml") })
 
-public class Neo4jTest {
+public abstract class Neo4jTest {
 
 	@Autowired
 	DbContext dbContext;
@@ -33,7 +34,7 @@ public class Neo4jTest {
 		file.delete();
 	}
 
-	private static void deleteDatabase() {
+	protected static void deleteDatabase() {
 		File file = new File("target/neo4j-db-test");
 
 		recursiveDelete(file);

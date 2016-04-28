@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.dsc</groupId>
-	<artifactId>disymnet</artifactId>
+	<artifactId>diseametry</artifactId>
 	<version>0.1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>Disymnet</name>
+	<name>Diseametry</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -17,6 +17,7 @@
 		<slf4j.version>1.7.5</slf4j.version>
 		<neo4j.version>2.3.2</neo4j.version>
 		<junit.version>4.11</junit.version>
+		<java.version>1.8</java.version>
 	</properties>
 
 	<repositories>

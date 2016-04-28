@@ -1,4 +1,4 @@
-package org.dsc.deseametry.domain;
+package org.dsc.diseametry.domain;
 
 import org.springframework.data.neo4j.annotation.EndNode;
 import org.springframework.data.neo4j.annotation.GraphId;
@@ -14,6 +14,10 @@ public class HasIndication {
     public HasIndication(Disease disease, Indication indication) {
     	this.disease = disease;
     	this.indication = indication;
+    }
+    
+    public HasIndication() {
+    	
     }
     
     public Disease getDisease() {

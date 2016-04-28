@@ -1,4 +1,4 @@
-package org.dsc.deseametry.domain;
+package org.dsc.diseametry.domain;
 
 public enum IndicationType {
 	SIGN_OR_SYMPTOM("T033", "fndg"),

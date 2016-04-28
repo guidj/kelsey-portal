@@ -1,8 +1,8 @@
-package org.dsc.deseametry.repositories;
+package org.dsc.diseametry.repositories;
 
 import java.util.Set;
 
-import org.dsc.deseametry.domain.Concept;
+import org.dsc.diseametry.domain.Concept;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.data.repository.query.Param;

@@ -1,4 +1,4 @@
-package org.dsc.deseametry.domain;
+package org.dsc.diseametry.domain;
 
 import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.Indexed;
