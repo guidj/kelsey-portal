@@ -21,7 +21,6 @@ public class JsonParserTest extends Neo4jTest {
 
 	@Test
 	@Transactional
-	@Rollback(false)
 	public void shouldInsertData() {
 
 		Logger.info("Testing data insertion");
