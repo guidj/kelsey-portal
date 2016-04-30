@@ -17,6 +17,7 @@ public class TestUtils {
 		try {
 			bytes = IOUtils.toByteArray(inputStream);
 		} catch (IOException e) {
+			Logger.error(e.toString());
 			throw new RuntimeException(e);
 		}
 

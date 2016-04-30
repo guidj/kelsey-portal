@@ -1,7 +1,7 @@
 package org.dsc.diseametry;
 
 import org.dsc.diseametry.repositories.DiseaseRepository;
-import org.dsc.diseametry.repositories.IndicationRepository;
+import org.dsc.diseametry.repositories.IndicatiorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.test.context.ContextConfiguration;
@@ -14,13 +14,13 @@ public class DbContext {
 	private DiseaseRepository diseaseRepository;
 
 	@Autowired
-	private IndicationRepository indicationRepository;
+	private IndicatiorRepository indicatorRepository;
 
 	public DiseaseRepository getDiseaseRepo() {
 		return diseaseRepository;
 	}
 
-	public IndicationRepository getIndicationRepo() {
-		return indicationRepository;
+	public IndicatiorRepository getIndicatorRepo() {
+		return indicatorRepository;
 	}
 }

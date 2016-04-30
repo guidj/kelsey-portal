@@ -2,30 +2,35 @@
 	{
 		"disease": 	{
 			"cui": "C100",
-			"name": "ictus"
+			"names": ["ictus"]
 		},
-		"indications": [
+		"indicators": [
 			{
 				"cui": "T400",
-				"name": "fever",
-				"type": "SIGN"
+				"names": ["fever"],
+				"type": "sosy"
 			}
 		]
 	},
 	{
 		"disease": {
 			"cui": "C101",
-			"name": "jondis"
+			"names": ["jondis"]
 		},
-		"indications": [
+		"indicators": [
+			{
+				"cui": "T400",
+				"names": ["fever"],
+				"type": "sosy"
+			},
 			{
 				"cui": "T401",
-				"name": "concussion",
+				"names": ["concussion"],
 				"type": "fndg"
 			},
 			{
 				"cui": "T403",
-				"name": "chills",
+				"names": ["chills"],
 				"type": "sosy"
 			}		
 		]	

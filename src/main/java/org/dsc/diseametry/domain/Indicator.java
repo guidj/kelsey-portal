@@ -3,61 +3,38 @@ package org.dsc.diseametry.domain;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.neo4j.graphdb.Direction;
 import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.NodeEntity;
-import org.springframework.data.neo4j.annotation.RelatedTo;
 import org.springframework.data.neo4j.support.index.IndexType;
 
 @NodeEntity
-public class Disease {
-	
-	public static final String HAS_SYMPTOM_OR_SIGN = "HAS_SYM_OR_SIGN";
-	public static final String HAS_FINDING = "HAS_FINDING";
-	
+public class Indicator {
+
 	@GraphId
 	private Long id;	
-
+	
 	@Indexed(unique = true, failOnDuplicate = true)
-	private String cui;	
+	private String cui;
 	
 	@Indexed(indexType = IndexType.LABEL)
-	private Set<String> names;	
-	
-	@RelatedTo(type = HAS_SYMPTOM_OR_SIGN, direction = Direction.OUTGOING)
-	Set<Indicator> symptoms;
-	
-	@RelatedTo(type = HAS_FINDING, direction = Direction.OUTGOING)
-	Set<Indicator> findings;
-	
-	public Disease() {
+	private Set<String> names;		
+		
+    public Indicator() {
 		
 	}
 	
-	public Disease(String cui) {
+	public Indicator(String cui) {
 		this.cui = cui;
 	}
 	
-	public void setCui(String cui){
+	public void setCui(String cui) {
 		this.cui = cui;
 	}
 	
-	public void addSymptomOrSign(Indicator indicator) {
-		if (this.symptoms == null) {
-			this.symptoms = new HashSet<Indicator>();
-		}
-		
-		this.symptoms.add(indicator);
-	}
-
-	public void addFinding(Indicator finding) {
-		if (this.findings == null) {
-			this.findings = new HashSet<Indicator>();
-		}
-		
-		this.findings.add(finding);
-	}
+	public String getCui() {
+		return cui;
+	}	
 	
 	public void addName(String name) {
 		if (this.names == null) {
@@ -70,14 +47,6 @@ public class Disease {
 	public Set<String> getNames(){
 		return this.names;
 	}
-	
-	public Set<Indicator> getSymptoms(){
-		return this.symptoms;
-	}
-	
-	public Set<Indicator> getFindings(){
-		return this.findings;
-	}	
 	
 	@Override
 	public int hashCode() {
@@ -95,7 +64,7 @@ public class Disease {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Disease other = (Disease) obj;
+		Indicator other = (Indicator) obj;
 		if (cui == null) {
 			if (other.cui != null)
 				return false;

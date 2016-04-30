@@ -1,13 +1,13 @@
 package org.dsc.diseametry.domain;
 
-public enum IndicationType {
+public enum IndicatorType {
 	SIGN_OR_SYMPTOM("T033", "fndg"),
 	FINDING("T184", "sosy");
 	
 	String tui;
 	String abbreaviation;
 	
-	private IndicationType(String tui, String abbreviation) {
+	private IndicatorType(String tui, String abbreviation) {
 		this.tui = tui;
 		this.abbreaviation = abbreviation;
 	}
@@ -24,9 +24,9 @@ public enum IndicationType {
 		return abbreaviation;
 	}
 	
-	public static IndicationType fromAbbreviation(String abbr) {
+	public static IndicatorType fromAbbreviation(String abbr) {
 		
-		for (IndicationType type: values()) {
+		for (IndicatorType type: values()) {
 			if (type.getAbbreaviation().equals(abbr.toLowerCase())) {
 				return type;
 			}
