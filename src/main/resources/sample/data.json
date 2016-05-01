@@ -8,8 +8,13 @@
 			{
 				"cui": "T400",
 				"names": ["fever"],
-				"type": "sosy"
-			}
+				"type": "fndg"
+			},
+			{
+				"cui": "T401",
+				"names": ["concussion"],
+				"type": "fndg"
+			}			
 		]
 	},
 	{
@@ -25,14 +30,45 @@
 			},
 			{
 				"cui": "T401",
-				"names": ["concussion"],
+				"names": ["swollen"],
 				"type": "fndg"
 			},
 			{
-				"cui": "T403",
+				"cui": "T402",
 				"names": ["chills"],
 				"type": "sosy"
 			}		
 		]	
-	}
+	},
+	{
+		"disease": {
+			"cui": "C102",
+			"names": ["malaria"]
+		},
+		"indicators": [
+			{
+				"cui": "T402",
+				"names": ["chills"],
+				"type": "sosy"
+			},
+			{
+				"cui": "T403",
+				"names": ["weakness"],
+				"type": "sosy"
+			}					
+		]	
+	},
+	{
+		"disease": {
+			"cui": "C103",
+			"names": ["genesis-k14"]
+		},
+		"indicators": [
+			{
+				"cui": "T402",
+				"names": ["calafrios"],
+				"type": "sosy"
+			}
+		]
+	}	
 ]

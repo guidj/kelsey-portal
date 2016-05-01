@@ -42,13 +42,6 @@ public class Document {
 		}
 	}
 	
-	public void addDocIndicatorName(String indicatorCui, String indicatorName) {
-		
-		this.addFoundIndicator(indicatorCui);
-		
-		this.foundIndicators.get(indicatorCui).getNames().add(indicatorName);
-	}
-
 	public String getDiseaseCui() {
 		return diseaseCui;
 	}

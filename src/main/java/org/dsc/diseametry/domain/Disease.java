@@ -43,6 +43,10 @@ public class Disease {
 		this.cui = cui;
 	}
 	
+	public String getCui() {
+		return this.cui;
+	}
+	
 	public void addSymptomOrSign(Indicator indicator) {
 		if (this.symptoms == null) {
 			this.symptoms = new HashSet<Indicator>();

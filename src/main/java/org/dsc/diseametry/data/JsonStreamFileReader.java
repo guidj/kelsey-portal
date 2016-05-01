@@ -29,7 +29,6 @@ public class JsonStreamFileReader implements IStreamReader {
 	private int nextIndex;
 	private boolean closed;
 	
-	
 	public JsonStreamFileReader(String filePath) {
 		this.filePath = filePath;
 		this.initialize();
@@ -67,7 +66,6 @@ public class JsonStreamFileReader implements IStreamReader {
 		Document doc = new Document();
 		Document.FoundIndicator indicator;
 		Set<String> names = new HashSet<String>();
-		int n;
 		
 		if (this.isClosed()) {
 			return null;
@@ -77,14 +75,11 @@ public class JsonStreamFileReader implements IStreamReader {
 		
 		doc.setDisease(object.getJSONObject(DISEASE).getString(CUI));
 		
-		n = object.getJSONObject(DISEASE).getJSONArray(NAMES).length();
-		for(int i = 0; i < n; i++) {
+		for(int i = 0; i < object.getJSONObject(DISEASE).getJSONArray(NAMES).length(); i++) {
 			names.add(object.getJSONObject(DISEASE).getJSONArray(NAMES).getString(i));
 		}
 	
-		n = object.getJSONArray(INDICATORS).length();
-
-		for (int i = 0; i < n; i++) {
+		for (int i = 0; i < object.getJSONArray(INDICATORS).length(); i++) {
 			tmpObj = object.getJSONArray(INDICATORS).getJSONObject(i);
 			
 			indicator = Document.createIndicator();

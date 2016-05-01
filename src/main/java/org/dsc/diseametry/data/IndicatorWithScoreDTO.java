@@ -1,0 +1,25 @@
+package org.dsc.diseametry.data;
+
+import org.dsc.diseametry.domain.Indicator;
+import org.springframework.data.neo4j.annotation.QueryResult;
+import org.springframework.data.neo4j.annotation.ResultColumn;
+
+
+@QueryResult
+public class IndicatorWithScoreDTO {
+	@ResultColumn("indicator") public Indicator indicator;
+	@ResultColumn("score") public Integer score;
+	
+	public Indicator getIndicator() {
+		return indicator;
+	}
+	public void setIndicator(Indicator indicator) {
+		this.indicator = indicator;
+	}
+	public Integer getScore() {
+		return score;
+	}
+	public void setScore(Integer score) {
+		this.score = score;
+	}
+}

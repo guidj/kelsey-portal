@@ -21,7 +21,6 @@ public class Indicator {
 	private Set<String> names;		
 		
     public Indicator() {
-		
 	}
 	
 	public Indicator(String cui) {

@@ -6,7 +6,8 @@ The goal of this application is to uncover relationships between diseases that s
 
 The following questions need to be answerable with the system:
 
-  - Given a disease, what other diseases have the most common indicators (symptom/sign or finding)?
+  - Given a disease, what other diseases have the highest number of common indicators (symptom/sign or finding)?
+  - Given a disease, what indicators connect it to other diseases?
   - Given an indicator, what other indicators commonly present in diseases where said indicator is present?
 
 Data used are annotated documents, e.g. research papers, web pages, encyclopedias, that contain information on diseases and their related symptoms/signs and/or findings. Since the documents are annotated with UMLS/SNOMED notations, we first to understand some relevant vocabulary for it. 
