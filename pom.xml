@@ -68,14 +68,11 @@
 			<version>${spring.version}</version>
 			<scope>test</scope>
 		</dependency>
-		<!--<dependency> <groupId>org.neo4j</groupId> <artifactId>neo4j-kernel</artifactId> 
-			<version>${neo4j.version}</version> <type>test-jar</type> <scope>test</scope> 
-			</dependency> -->
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
 			<version>20160212</version>
-			<scope>test</scope>
+			<!-- <scope>test</scope> -->
 		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>
@@ -118,7 +115,7 @@
 									implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
 								<transformer
 									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>org.dsc.App</mainClass>
+									<mainClass>org.dsc.diseametry.App</mainClass>
 								</transformer>
 							</transformers>
 						</configuration>
