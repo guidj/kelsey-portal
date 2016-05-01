@@ -7,8 +7,8 @@ import org.springframework.data.neo4j.annotation.ResultColumn;
 
 @QueryResult
 public class IndicatorWithScoreDTO {
-	@ResultColumn("indicator") public Indicator indicator;
-	@ResultColumn("score") public Integer score;
+	@ResultColumn("indicator") private Indicator indicator;
+	@ResultColumn("score") private Integer score;
 	
 	public Indicator getIndicator() {
 		return indicator;

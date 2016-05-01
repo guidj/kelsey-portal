@@ -1,20 +1,15 @@
 package org.dsc.diseametry.test;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.dsc.diseametry.data.DiseaseWithScoreDTO;
-import org.dsc.diseametry.data.IndicatorWithScoreDTO;
-import org.dsc.diseametry.domain.Disease;
 import org.dsc.diseametry.domain.Indicator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.LoggerFactory;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,7 +35,7 @@ public class EntityIntegrityTest extends Neo4jTest {
 		
 		for(Map.Entry<String, Set<String>> entry: expectedNames.entrySet()) {
 			
-			Logger.info("{} similar to {} [score: {}]", entry.getKey());
+			Logger.info("{} expected to have {} names", entry.getKey(), entry.getValue().size());
 			
 			Indicator indicator = this.dbContext.getIndicatorRepo().findByCui(entry.getKey());
 			assertNotNull(indicator);

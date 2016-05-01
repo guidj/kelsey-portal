@@ -1,0 +1,60 @@
+package org.dsc.diseametry.test;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import org.dsc.diseametry.data.IndicatorWithScoreDTO;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.slf4j.LoggerFactory;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@Transactional
+public class IndicatorRelevanceTest extends Neo4jTest {
+
+	private static final org.slf4j.Logger Logger = LoggerFactory.getLogger(IndicatorRelevanceTest.class);
+
+	@Test
+	@Transactional
+	public void testShouldFindSimilarDiseases() {
+		
+		super.seedData("sample/data.json");
+		
+		@SuppressWarnings("serial")
+		Map<String, Integer> expectedScores = new HashMap<String, Integer>(){{
+			put("T400", 2);
+			put("T401", 2);
+			put("T402", 3);
+			put("T403", 1);
+		}};
+		
+		Collection<IndicatorWithScoreDTO> foundIndicators = this.dbContext.getIndicatorRepo().findMostRelevantIndicators(0, 10);
+		
+		assertEquals(4, foundIndicators.size());
+		
+		assertEquals("T402", foundIndicators.parallelStream().collect(Collectors.toList()).get(0).getIndicator().getCui());
+		assertEquals("T403", foundIndicators.parallelStream().collect(Collectors.toList()).get(expectedScores.size() - 1).getIndicator().getCui());
+		
+		Map<String, IndicatorWithScoreDTO> mostRelevantIndicators = foundIndicators
+				.parallelStream()
+				.collect(
+						Collectors.toMap(i -> ((IndicatorWithScoreDTO)i).getIndicator().getCui(), i -> i));
+		
+		assertNotNull(mostRelevantIndicators);
+		
+		IndicatorWithScoreDTO relevantIndicator;
+		
+		for(Map.Entry<String, Integer> entry: expectedScores.entrySet()) {
+
+			relevantIndicator = mostRelevantIndicators.get(entry.getKey());
+			assertNotNull(relevantIndicator);
+			assertEquals(entry.getValue(), relevantIndicator.getScore());
+			
+			Logger.info("{} has relevance score of [{}]", entry.getKey(), entry.getValue());
+		}
+	}
+}

@@ -19,16 +19,21 @@ public interface DiseaseRepository extends GraphRepository<Disease> {
 
 	public Disease findByCui(String cui);
 	
+	@Query(
+	"MATCH (d:Disease {cui:{cui}})-[:HAS_FINDING|:HAS_SYM_OR_SIGN]->(i:Indicator)<-[:HAS_FINDING|:HAS_SYM_OR_SIGN]-(other:Disease)" + 
+	"\nWHERE d <> other" +
+	"\nRETURN DISTINCT other AS disease, COUNT(i) AS score" +
+	"\nORDER BY score DESC" +
+	"\nSKIP {skip}" +
+	"\nLIMIT {limit}")
+	public Collection<DiseaseWithScoreDTO> findSimilarDiseases(@Param("cui") String cui, @Param("skip") int skip, @Param("limit") int limit);
 	
 	@Query(
-	"MATCH (n:Disease {cui:{cui}})-[:HAS_FINDING|:HAS_SYM_OR_SIGN]->(i:Indicator)<-[:HAS_FINDING|:HAS_SYM_OR_SIGN]-(other:Disease)" + 
-	"\nWHERE n <> other" +
-	"\nRETURN DISTINCT other AS disease, COUNT(i) AS score")
-	public Collection<DiseaseWithScoreDTO> findSimilarDiseases(@Param("cui") String cui);
-	
-	@Query(
-	"MATCH (n:Disease {cui:{cui}})-[:HAS_FINDING|:HAS_SYM_OR_SIGN]->(i:Indicator)<-[:HAS_FINDING|:HAS_SYM_OR_SIGN]-(other:Disease)" + 
-	"\nWHERE n <> other" +
-	"\nRETURN DISTINCT i AS indicator, COUNT(other) AS score")
-	public Collection<IndicatorWithScoreDTO> findConnectingIndicators(@Param("cui") String cui);	
+	"MATCH (d:Disease {cui:{cui}})-[:HAS_FINDING|:HAS_SYM_OR_SIGN]->(i:Indicator)<-[:HAS_FINDING|:HAS_SYM_OR_SIGN]-(other:Disease)" + 
+	"\nWHERE d <> other" +
+	"\nRETURN DISTINCT i AS indicator, COUNT(other) AS score" +
+	"\nORDER BY score DESC" +
+	"\nSKIP {skip}" +
+	"\nLIMIT {limit}")
+	public Collection<IndicatorWithScoreDTO> findConnectingIndicators(@Param("cui") String cui, @Param("skip") int skip, @Param("limit") int limit);	
 }

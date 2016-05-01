@@ -10,7 +10,6 @@ import org.dsc.diseametry.domain.Disease;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.LoggerFactory;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,7 +41,7 @@ public class DiseaseRelationsTest extends Neo4jTest {
 			Disease disease = this.dbContext.getDiseaseRepo().findByCui(entry.getKey());
 			assertNotNull(disease);
 			
-			Collection<DiseaseWithScoreDTO> similarDiseases = this.dbContext.getDiseaseRepo().findSimilarDiseases(disease.getCui());
+			Collection<DiseaseWithScoreDTO> similarDiseases = this.dbContext.getDiseaseRepo().findSimilarDiseases(disease.getCui(), 0, 10);
 			
 			assertNotNull(similarDiseases);
 			
@@ -79,7 +78,7 @@ public class DiseaseRelationsTest extends Neo4jTest {
 			Disease disease = this.dbContext.getDiseaseRepo().findByCui(entry.getKey());
 			assertNotNull(disease);
 			
-			Collection<IndicatorWithScoreDTO> connectingIndicators = this.dbContext.getDiseaseRepo().findConnectingIndicators(disease.getCui());
+			Collection<IndicatorWithScoreDTO> connectingIndicators = this.dbContext.getDiseaseRepo().findConnectingIndicators(disease.getCui(), 0, 10);
 			
 			assertNotNull(connectingIndicators);
 			
