@@ -9,7 +9,7 @@ import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.data.repository.query.Param;
 
-public interface IndicatiorRepository extends GraphRepository<Indicator> {
+public interface IndicatorRepository extends GraphRepository<Indicator> {
 
 	@Query("MATCH (n) RETURN n SKIP {skip} LIMIT {limit}")
 	Set<Indicator> get(@Param("skip") int skip, @Param("limit") int limit);
