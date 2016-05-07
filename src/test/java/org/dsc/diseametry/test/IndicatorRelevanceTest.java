@@ -1,7 +1,10 @@
 package org.dsc.diseametry.test;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -36,13 +39,18 @@ public class IndicatorRelevanceTest extends Neo4jTest {
 		
 		assertEquals(4, foundIndicators.size());
 		
-		assertEquals("T402", foundIndicators.parallelStream().collect(Collectors.toList()).get(0).getIndicator().getCui());
-		assertEquals("T403", foundIndicators.parallelStream().collect(Collectors.toList()).get(expectedScores.size() - 1).getIndicator().getCui());
+		List<IndicatorWithScoreDTO> foundIndicatorsList = new ArrayList<IndicatorWithScoreDTO>();
+		Map<String, IndicatorWithScoreDTO> mostRelevantIndicators = new HashMap<String, IndicatorWithScoreDTO>(); 
+		IndicatorWithScoreDTO refIndicatorWithScoreDTO;
 		
-		Map<String, IndicatorWithScoreDTO> mostRelevantIndicators = foundIndicators
-				.parallelStream()
-				.collect(
-						Collectors.toMap(i -> ((IndicatorWithScoreDTO)i).getIndicator().getCui(), i -> i));
+		for(Iterator<IndicatorWithScoreDTO> i = foundIndicators.iterator(); i.hasNext();) {
+			refIndicatorWithScoreDTO = i.next();
+			foundIndicatorsList.add(refIndicatorWithScoreDTO);
+			mostRelevantIndicators.put(refIndicatorWithScoreDTO.getIndicator().getCui(), refIndicatorWithScoreDTO);
+		}
+		
+		assertEquals("T402", foundIndicatorsList.get(0).getIndicator().getCui());
+		assertEquals("T403", foundIndicatorsList.get(expectedScores.size() - 1).getIndicator().getCui());
 		
 		assertNotNull(mostRelevantIndicators);
 		
