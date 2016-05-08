@@ -17,17 +17,18 @@ usage: Diseametry
  -f,--feed <arg>    Feed [file] annotated data into neo4j. After seeding,
                     program exits, without executing any queries.
  -l,--limit <arg>   Maximum number of results. Default 10
- -q,--query <arg>   Run query for a concept (CUI):
-                    1: For a given disease, what other diseases have the
-                    highest number of common indicators?
-                    2: For a given disease, what indicators connect a
-                    diease to other diseases
-                    3: For an indicator, what other indicators commonly
-                    present in diseases where said indicator is present?
+ -q,--query <arg>   Run query:
+                    1: For a given disease (CUI), what other diseases have
+                    the highest number of common indicators?
+                    2: For a given disease (CUI), what indicators connect
+                    a diease to other diseases
+                    3: For an indicator (CUI), what other indicators
+                    commonly present in diseases where said indicator is
+                    present?
                     4: Which diseases are most similar to each other
-                    (share indicators)?
-                    5: List diseases?
-                    5: List indicators?
+                    (share indicators) (No CUI)?
+                    5: List diseases (No CUI)
+                    5: List indicators (No CUI)
  -s,--skip <arg>    Results offset. Default 0
 ```
 

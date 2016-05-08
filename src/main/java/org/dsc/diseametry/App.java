@@ -123,13 +123,13 @@ public class App {
 		Options options = new Options();
 		options.addOption("f", CMD_FEED, true,
 				"Feed [file] annotated data into neo4j. After seeding, program exits, without executing any queries.");
-		options.addOption("q", CMD_QUERY, true, "Run query for a concept (CUI):\n"
-				+ "\n\t1: For a given disease, what other diseases have the highest number of common indicators?"
-				+ "\n\t2: For a given disease, what indicators connect a diease to other diseases"
-				+ "\n\t3: For an indicator, what other indicators commonly present in diseases where said indicator is present?"
-				+ "\n\t4: Which diseases are most similar to each other (share indicators)?"
-				+ "\n\t5: List diseases?"
-				+ "\n\t5: List indicators?");
+		options.addOption("q", CMD_QUERY, true, "Run query:\n"
+				+ "\n\t1: For a given disease (CUI), what other diseases have the highest number of common indicators?"
+				+ "\n\t2: For a given disease (CUI), what indicators connect a diease to other diseases"
+				+ "\n\t3: For an indicator (CUI), what other indicators commonly present in diseases where said indicator is present?"
+				+ "\n\t4: Which diseases are most similar to each other (share indicators) (No CUI)?"
+				+ "\n\t5: List diseases (No CUI)"
+				+ "\n\t5: List indicators (No CUI)");
 		options.addOption("c", CMD_CUI, true, "CUI of disease or indicator (symptom or sign or finding)");
 		options.addOption("s", CMD_SKIP, true, "Results offset. Default 0");
 		options.addOption("l", CMD_LIMIT, true, "Maximum number of results. Default 10");

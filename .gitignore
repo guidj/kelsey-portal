@@ -15,6 +15,7 @@ hs_err_pid*
 .project
 .settings/
 target/
+dependency-reduced-pom.xml
 
 *.log
 
