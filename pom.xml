@@ -15,7 +15,6 @@
 		<spring-data-neo4j.version>3.2.1.RELEASE</spring-data-neo4j.version>
 		<spring.version>4.1.1.RELEASE</spring.version>
 		<slf4j.version>1.7.5</slf4j.version>
-		<neo4j.version>2.3.2</neo4j.version>
 		<junit.version>4.11</junit.version>
 		<java.version>1.8</java.version>
 	</properties>

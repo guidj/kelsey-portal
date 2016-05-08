@@ -75,7 +75,7 @@ public class Indicator {
 
 	@Override
 	public String toString() {
-		return String.format("%s(cui=%s, names=[%s])", this.getClass().getName(), this.getCui(),
+		return String.format("Indicator(cui=%s, names=[%s])", this.getCui(),
 				Utils.collectionToString(this.getNames().toArray(new String[0])));
 	}
 }

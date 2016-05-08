@@ -107,7 +107,7 @@ public class MetaMapNLP {
 							tmpFoundIndicator.setCui(concept.getConceptId());
 							tmpFoundIndicator.addName(concept.getConceptName());
 							tmpFoundIndicator.setIndicatorType(IndicatorType.SIGN_OR_SYMPTOM);
-
+							doc.addFoundIndicator(tmpFoundIndicator);
 						}
 					}
 
@@ -117,7 +117,7 @@ public class MetaMapNLP {
 							tmpFoundIndicator.setCui(concept.getConceptId());
 							tmpFoundIndicator.addName(concept.getConceptName());
 							tmpFoundIndicator.setIndicatorType(IndicatorType.FINDING);
-
+							doc.addFoundIndicator(tmpFoundIndicator);
 						}
 					}
 				}
