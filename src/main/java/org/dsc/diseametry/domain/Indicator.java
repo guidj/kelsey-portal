@@ -3,6 +3,7 @@ package org.dsc.diseametry.domain;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.dsc.diseametry.Utils;
 import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.NodeEntity;
@@ -12,41 +13,41 @@ import org.springframework.data.neo4j.support.index.IndexType;
 public class Indicator {
 
 	@GraphId
-	private Long id;	
-	
+	private Long id;
+
 	@Indexed(unique = true, failOnDuplicate = true)
 	private String cui;
-	
+
 	@Indexed(indexType = IndexType.LABEL)
-	private Set<String> names;		
-		
-    public Indicator() {
+	private Set<String> names;
+
+	public Indicator() {
 	}
-	
+
 	public Indicator(String cui) {
 		this.cui = cui;
 	}
-	
+
 	public void setCui(String cui) {
 		this.cui = cui;
 	}
-	
+
 	public String getCui() {
 		return cui;
-	}	
-	
+	}
+
 	public void addName(String name) {
 		if (this.names == null) {
 			this.names = new HashSet<String>();
 		}
-		
+
 		this.names.add(name);
 	}
-	
-	public Set<String> getNames(){
+
+	public Set<String> getNames() {
 		return this.names;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -70,5 +71,11 @@ public class Indicator {
 		} else if (!cui.equals(other.cui))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("%s(cui=%s, names=[%s])", this.getClass().getName(), this.getCui(),
+				Utils.collectionToString(this.getNames().toArray(new String[0])));
 	}
 }

@@ -48,18 +48,24 @@ public class MetaMapNLP {
 		this.mmapi.setOptions("-R SNOMEDCT_US");
 	}
 
-	public void run() {
+	public void run(String docPath) {
 
 		if (this.mmapi == null) {
 			this.init();
 		}
 
-		ArrayList<MetaSourceDoc> metaSourceDocs = readJSON("diseasesData/adam_articles.json");
+		ArrayList<MetaSourceDoc> metaSourceDocs = readJSON(docPath);
 		List<Document> tmpDocs;
 		FoundIndicator tmpFoundIndicator;
 		Document tmpDoc;
+		long index = 1;
+		Logger.info(String.format("Found %d source documents in %s", metaSourceDocs.size(), docPath));
 
 		for (MetaSourceDoc metaSourceDoc : metaSourceDocs) {
+			
+			Logger.info(String.format("Reading source doc %d/%d", index, metaSourceDocs.size()));
+			index++;
+			
 			tmpDocs = new ArrayList<Document>();
 			tmpDoc = null;
 
@@ -67,15 +73,15 @@ public class MetaMapNLP {
 			Logger.info("URL: " + metaSourceDoc.getUrl() + "\n");
 
 			try {
-				Logger.info("Symptoms:");
-				Logger.info("-------------");
-				Logger.info(metaSourceDoc.getSymptoms());
-				Logger.info("-------------");
-				Logger.info("Concepts retrieved for disease: " + metaSourceDoc.getName() + "\n");
+				Logger.debug("Symptoms:");
+				Logger.debug("-------------");
+				Logger.debug(metaSourceDoc.getSymptoms());
+				Logger.debug("-------------");
+				Logger.debug("Concepts retrieved for disease: " + metaSourceDoc.getName() + "\n");
 
 				ArrayList<Ev> disease_concepts = getUMLSConceptsIn(metaSourceDoc.getName());
 				for (Ev concept : disease_concepts) {
-					Logger.info("\t\t" + concept.getConceptName() + " (CUI: " + concept.getConceptId() + ") - "
+					Logger.debug("\t\t" + concept.getConceptName() + " (CUI: " + concept.getConceptId() + ") - "
 							+ concept.getSemanticTypes());
 					if (concept.getSemanticTypes().contains(UMLS_DISEASE)) {
 						tmpDoc = new Document();
@@ -85,14 +91,14 @@ public class MetaMapNLP {
 					}
 				}
 
-				Logger.info("-------------");
+				Logger.debug("-------------");
 
-				Logger.info("Concepts retrieved for symptoms: \n");
+				Logger.debug("Concepts retrieved for symptoms: \n");
 
 				ArrayList<Ev> symptoms_concepts = getUMLSConceptsIn(metaSourceDoc.getSymptoms());
 
 				for (Ev concept : symptoms_concepts) {
-					Logger.info("\t\t" + concept.getConceptName() + " (CUI: " + concept.getConceptId() + ") - "
+					Logger.debug("\t\t" + concept.getConceptName() + " (CUI: " + concept.getConceptId() + ") - "
 							+ concept.getSemanticTypes());
 
 					if (concept.getSemanticTypes().contains(IndicatorType.SIGN_OR_SYMPTOM.toString())) {
@@ -118,7 +124,7 @@ public class MetaMapNLP {
 
 				ds.indexDocuments(tmpDocs);
 
-				Logger.info("-------------");
+				Logger.debug("-------------");
 
 			} catch (Exception e) {
 				Logger.error("Error performing NLP: " + e.getMessage());
@@ -212,9 +218,5 @@ public class MetaMapNLP {
 			}
 		}
 		return false;
-	}
-
-	public static void main(String args[]) {
-		new MetaMapNLP().run();
 	}
 }

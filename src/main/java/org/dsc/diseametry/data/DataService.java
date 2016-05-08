@@ -10,23 +10,25 @@ import org.dsc.diseametry.domain.IndicatorType;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class DataService {
-	
+
 	private static final org.slf4j.Logger Logger = LoggerFactory.getLogger(DataService.class);
 
 	@Autowired
 	private DbContext dbContext;
-	
+
+	@Transactional
 	public void indexDocuments(List<Document> documents) {
-		
+
 		Logger.info(String.format("Inserting %s new document(s) into Neo4j", documents.size()));
-		
+
 		Disease disease;
 		Indicator indicator;
-		
-		for(Document doc: documents){
+
+		for (Document doc : documents) {
 
 			disease = this.dbContext.getDiseaseRepo().findByCui(doc.getDiseaseCui());
 
@@ -55,10 +57,10 @@ public class DataService {
 				} else if (entry.getValue().getIndicatorType() == IndicatorType.FINDING) {
 					disease.addFinding(indicator);
 				}
-				
+
 				this.dbContext.getIndicatorRepo().save(indicator);
 			}
-			
+
 			this.dbContext.getDiseaseRepo().save(disease);
 		}
 	}

@@ -10,11 +10,38 @@ mvn clean package
 
 ## Usage
 
-First, insert data into Neo4j
-```sh
-java -cp "lib/*:target/*" org.dsc.diseametry.App
+```
+usage: Diseametry
+ -c,--cui <arg>     CUI of disease or indicator (symptom or sign or
+                    finding)
+ -f,--feed <arg>    Feed [file] annotated data into neo4j. After seeding,
+                    program exits, without executing any queries.
+ -l,--limit <arg>   Maximum number of results. Default 10
+ -q,--query <arg>   Run query for a concept (CUI):
+                    1: For a given disease, what other diseases have the
+                    highest number of common indicators?
+                    2: For a given disease, what indicators connect a
+                    diease to other diseases
+                    3: For an indicator, what other indicators commonly
+                    present in diseases where said indicator is present?
+                    4: Which diseases are most similar to each other
+                    (share indicators)?
+                    5: List diseases?
+                    5: List indicators?
+ -s,--skip <arg>    Results offset. Default 0
 ```
 
+Seed data with JSON feed
+
+```sh
+java -cp "lib/*:target/*" org.dsc.diseametry.App --feed diseasesData/adam_articles.json
+```
+
+Run queries
+
+```sh
+java -cp "lib/*:target/*" org.dsc.diseametry.App --query 5 
+```
 
 
 ## Conceptual Model
