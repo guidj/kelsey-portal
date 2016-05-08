@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.dsc.diseametry.data.DiseasePairWithScoreDTO;
 import org.dsc.diseametry.data.DiseaseWithScoreDTO;
 import org.dsc.diseametry.data.IndicatorWithScoreDTO;
 import org.dsc.diseametry.domain.Disease;
@@ -21,7 +22,7 @@ public class DiseaseRelationsTest extends Neo4jTest {
 
 	@Test
 	@Transactional
-	public void testShouldFindSimilarDiseases() {
+	public void testShouldFindSimilarDiseasesByCui() {
 		
 		super.seedData("sample/data.json");
 		
@@ -53,6 +54,37 @@ public class DiseaseRelationsTest extends Neo4jTest {
 				
 				Logger.info("{} similar to {} [score: {}]", entry.getKey(), cui, score);
 			}
+		}
+	}	
+
+	@Test
+	@Transactional
+	public void testShouldFindSimilarDiseases() {
+		
+		super.seedData("sample/data.json");
+		
+		@SuppressWarnings("serial")
+		Map<String, Map<String, Integer>> expectedScores = new HashMap<String, Map<String, Integer>>(){{
+			put("C100", new HashMap<String, Integer>(){{put("C101", 2);}});
+			put("C101", new HashMap<String, Integer>(){{put("C100", 2); put("C102", 1); put("C103", 1);}});
+			put("C102", new HashMap<String, Integer>(){{put("C101", 1); put("C103", 1);}});
+			put("C103", new HashMap<String, Integer>(){{put("C101", 1); put("C102", 1);}});
+		}};
+		
+		Map<String, Integer> foundDiseasePairs;
+		
+		Collection<DiseasePairWithScoreDTO> similarDiseases = this.dbContext.getDiseaseRepo().findSimilarDiseases(0, 10);
+		
+		assertEquals(4, similarDiseases.size());
+		
+		for(DiseasePairWithScoreDTO diseasePair: similarDiseases) {
+			
+			foundDiseasePairs = expectedScores.get(diseasePair.getDisease().getCui());
+			
+			assertEquals(foundDiseasePairs.get(diseasePair.getOther().getCui()), diseasePair.getScore());
+			
+			Logger.info(diseasePair.getDisease().getCui() + " similar to " + diseasePair.getOther().getCui() + " with score "
+					+ diseasePair.getScore());			
 		}
 	}
 	
