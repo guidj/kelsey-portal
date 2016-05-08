@@ -1,5 +1,22 @@
 # Diseametry
 
+## Building
+
+Build with maven
+
+```sh
+mvn clean package
+```
+
+## Usage
+
+First, insert data into Neo4j
+```sh
+java -cp "lib/*:target/*" org.dsc.diseametry.App
+```
+
+
+
 ## Conceptual Model
 
 The goal of this application is to uncover relationships between diseases that share symptoms/signs or findings in patients.

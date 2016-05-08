@@ -1,12 +1,12 @@
-package org.dsc.metamap;
+package org.dsc.diseametry.metamap;
 
-public class Disease {
+public class MetaSourceDoc {
 
     private String name;
     private String symptoms;
     private String url;
 
-    public Disease(String n, String u, String text) {
+    public MetaSourceDoc(String n, String u, String text) {
         this.name = n;
         this.url = u;
         this.symptoms = text;
@@ -23,6 +23,5 @@ public class Disease {
     public String getSymptoms() {
         return symptoms;
     }
-
 
 }

@@ -1,4 +1,4 @@
-package org.dsc.metamap;
+package org.dsc.diseametry.metamap;
 
 import org.apache.log4j.Logger;
 
