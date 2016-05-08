@@ -8,6 +8,8 @@ Build with maven
 mvn clean package
 ```
 
+*Note*: spring-data-neo4j 3.2.1-RELEASE is compatible with Neo4j-2.1.5 
+
 ## Usage
 
 ```
