@@ -40,15 +40,17 @@ public class App {
 
         switch (q) {
             case 1:
+
                 Collection<DiseaseWithScoreDTO> similarDiseases = dbContext.getDiseaseRepo().findSimilarDiseases(cui,
                         skip, limit);
 
-                if (similarDiseases.isEmpty()) {
-                    Logger.info("Got 0 results");
+                Logger.info("Found results: ", similarDiseases.size());
+
+                if (!similarDiseases.isEmpty()) {
+                    Logger.info("Results: (Disease, Score)");
                     return;
                 }
 
-                Logger.info("Results: (Disease, Score)");
                 for (DiseaseWithScoreDTO diseaseWithScore : similarDiseases) {
                     Logger.info(String.format("%s, %s", diseaseWithScore.getDisease().toString(), diseaseWithScore.getScore()));
                 }
@@ -56,15 +58,17 @@ public class App {
                 break;
 
             case 2:
+
                 Collection<IndicatorWithScoreDTO> connectingIndicators = dbContext.getDiseaseRepo().findConnectingIndicators(cui,
                         skip, limit);
 
-                if (connectingIndicators.isEmpty()) {
-                    Logger.info("Got 0 results");
+                Logger.info("Found results: ", connectingIndicators.size());
+
+                if (!connectingIndicators.isEmpty()) {
+                    Logger.info("Results: (Indicator, Score)");
                     return;
                 }
 
-                Logger.info("Results: (Indicator, Score)");
                 for (IndicatorWithScoreDTO connectingIndicator : connectingIndicators) {
                     Logger.info(String.format("%s, %s", connectingIndicator.getIndicator().toString(), connectingIndicator.getScore()));
                 }
@@ -72,21 +76,22 @@ public class App {
                 break;
 
             case 3:
+
                 Collection<IndicatorWithScoreDTO> similarIndicators = dbContext.getIndicatorRepo().findSimilarIndicators(cui,
                         skip, limit);
 
-                if (similarIndicators.isEmpty()) {
-                    Logger.info("Got 0 results");
+                Logger.info("Found results: ", similarIndicators.size());
+
+                if (!similarIndicators.isEmpty()) {
+                    Logger.info("Results: (Indicator, Score)");
                     return;
                 }
 
-                Logger.info("Results: (Indicator, Score)");
                 for (IndicatorWithScoreDTO similarIndicator : similarIndicators) {
                     Logger.info(String.format("%s, %s", similarIndicator.getIndicator().toString(), similarIndicator.getScore()));
                 }
 
                 break;
-
         }
     }
 
@@ -113,7 +118,9 @@ public class App {
                             diseasePairWithScore.getOther().toString(),
                             diseasePairWithScore.getScore()));
                 }
+
                 break;
+
             case 5:
 
                 Set<Disease> diseases = dbContext.getDiseaseRepo().get(skip, limit);
@@ -131,6 +138,7 @@ public class App {
                 break;
 
             case 6:
+
                 Set<Indicator> indicators = dbContext.getIndicatorRepo().get(skip, limit);
 
                 Logger.info("Found results: ", indicators.size());
@@ -142,6 +150,7 @@ public class App {
                 for (Indicator i : indicators) {
                     Logger.info(i.toString());
                 }
+
                 break;
         }
     }
