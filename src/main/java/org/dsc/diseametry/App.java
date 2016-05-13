@@ -44,7 +44,7 @@ public class App {
                 Collection<DiseaseWithScoreDTO> similarDiseases = dbContext.getDiseaseRepo().findSimilarDiseases(cui,
                         skip, limit);
 
-                Logger.info("Found results: ", similarDiseases.size());
+                Logger.info("Found results: {}", similarDiseases.size());
 
                 if (!similarDiseases.isEmpty()) {
                     Logger.info("Results: (Disease, Score)");
@@ -52,7 +52,7 @@ public class App {
                 }
 
                 for (DiseaseWithScoreDTO diseaseWithScore : similarDiseases) {
-                    Logger.info(String.format("%s, %s", diseaseWithScore.getDisease().toString(), diseaseWithScore.getScore()));
+                    Logger.info("{}, {}", diseaseWithScore.getDisease().toString(), diseaseWithScore.getScore());
                 }
 
                 break;
@@ -62,7 +62,7 @@ public class App {
                 Collection<IndicatorWithScoreDTO> connectingIndicators = dbContext.getDiseaseRepo().findConnectingIndicators(cui,
                         skip, limit);
 
-                Logger.info("Found results: ", connectingIndicators.size());
+                Logger.info("Found results: {}", connectingIndicators.size());
 
                 if (!connectingIndicators.isEmpty()) {
                     Logger.info("Results: (Indicator, Score)");
@@ -70,7 +70,7 @@ public class App {
                 }
 
                 for (IndicatorWithScoreDTO connectingIndicator : connectingIndicators) {
-                    Logger.info(String.format("%s, %s", connectingIndicator.getIndicator().toString(), connectingIndicator.getScore()));
+                    Logger.info("{}, {}", connectingIndicator.getIndicator().toString(), connectingIndicator.getScore());
                 }
 
                 break;
@@ -80,7 +80,7 @@ public class App {
                 Collection<IndicatorWithScoreDTO> similarIndicators = dbContext.getIndicatorRepo().findSimilarIndicators(cui,
                         skip, limit);
 
-                Logger.info("Found results: ", similarIndicators.size());
+                Logger.info("Found results: {}", similarIndicators.size());
 
                 if (!similarIndicators.isEmpty()) {
                     Logger.info("Results: (Indicator, Score)");
@@ -88,7 +88,7 @@ public class App {
                 }
 
                 for (IndicatorWithScoreDTO similarIndicator : similarIndicators) {
-                    Logger.info(String.format("%s, %s", similarIndicator.getIndicator().toString(), similarIndicator.getScore()));
+                    Logger.info("{}, {}", similarIndicator.getIndicator().toString(), similarIndicator.getScore());
                 }
 
                 break;
@@ -107,16 +107,16 @@ public class App {
 
                 Collection<DiseasePairWithScoreDTO> similarDiseases = dbContext.getDiseaseRepo().findSimilarDiseases(skip, limit);
 
-                Logger.info("Found results: ", similarDiseases.size());
+                Logger.info("Found results: {}", similarDiseases.size());
 
                 if (!similarDiseases.isEmpty()) {
                     Logger.info("Results: (Disease, OtherDisease, Score)");
                 }
 
                 for (DiseasePairWithScoreDTO diseasePairWithScore : similarDiseases) {
-                    Logger.info(String.format("%s and %s, %s", diseasePairWithScore.getDisease().toString(),
+                    Logger.info("{} and {}, {}", diseasePairWithScore.getDisease().toString(),
                             diseasePairWithScore.getOther().toString(),
-                            diseasePairWithScore.getScore()));
+                            diseasePairWithScore.getScore());
                 }
 
                 break;
@@ -125,7 +125,7 @@ public class App {
 
                 Set<Disease> diseases = dbContext.getDiseaseRepo().get(skip, limit);
 
-                Logger.info("Found results: ", diseases.size());
+                Logger.info("Found results: {}", diseases.size());
 
                 if (!diseases.isEmpty()) {
                     Logger.info("Results: Disease(cui, names)");
@@ -141,7 +141,7 @@ public class App {
 
                 Set<Indicator> indicators = dbContext.getIndicatorRepo().get(skip, limit);
 
-                Logger.info("Found results: ", indicators.size());
+                Logger.info("Found results: {}", indicators.size());
 
                 if (!indicators.isEmpty()) {
                     Logger.info("Results: Indicator(cui, names)");
@@ -195,7 +195,7 @@ public class App {
 
                 if (!(new File(docPath)).exists()) {
                     usage(options);
-                    Logger.error(String.format("No file found at path %s", docPath));
+                    Logger.error("No file found at path {}", docPath);
                 }
 
                 metaMapNLP.run(docPath);
@@ -236,7 +236,7 @@ public class App {
         } catch (NumberFormatException e) {
             usage(options);
             Logger.error("[q, skip, limit] should be an integers.");
-            Logger.error(String.format("%s, %s, %s", q, skip, limit));
+            Logger.error("{}, {}, {}", q, skip, limit);
             System.exit(1);
         }
     }

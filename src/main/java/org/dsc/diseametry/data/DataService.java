@@ -23,7 +23,7 @@ public class DataService {
     @Transactional
     public void indexDocuments(List<Document> documents) {
 
-        Logger.info(String.format("Inserting %s new document(s) into Neo4j", documents.size()));
+        Logger.info("Inserting {} new document(s) into Neo4j", documents.size());
 
         Disease disease;
         Indicator indicator;

@@ -52,11 +52,11 @@ public class MetaMapNLP {
         FoundIndicator tmpFoundIndicator;
         Document tmpDoc;
         long index = 1;
-        Logger.info(String.format("Found %d source documents in %s", metaSourceDocs.size(), docPath));
+        Logger.info("Found {} source documents in {}", metaSourceDocs.size(), docPath);
 
         for (MetaSourceDoc metaSourceDoc : metaSourceDocs) {
 
-            Logger.info(String.format("Reading source doc %d/%d", index, metaSourceDocs.size()));
+            Logger.info("Reading source doc {}/{}", index, metaSourceDocs.size());
             index++;
 
             tmpDocs = new ArrayList<Document>();
