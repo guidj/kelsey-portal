@@ -1,10 +1,6 @@
 package org.dsc.diseametry.test;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
+import junit.framework.TestCase;
 import org.dsc.diseametry.DbContext;
 import org.dsc.diseametry.data.Document;
 import org.dsc.diseametry.data.JsonStreamFileReader;
@@ -17,106 +13,109 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.ContextHierarchy;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import junit.framework.TestCase;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextHierarchy({ @ContextConfiguration("file:src/main/resources/spring/testContext.xml") })
+@ContextHierarchy({@ContextConfiguration("file:src/main/resources/spring/testContext.xml")})
 
-public abstract class  Neo4jTest extends TestCase {
+public abstract class Neo4jTest extends TestCase {
 
-	@Autowired
-	DbContext dbContext;
+    @Autowired
+    DbContext dbContext;
 
-	private static void recursiveDelete(File file) {
-		// to end the recursive loop
-		if (!file.exists())
-			return;
+    private static void recursiveDelete(File file) {
+        // to end the recursive loop
+        if (!file.exists())
+            return;
 
-		// if directory, go inside and call recursively
-		if (file.isDirectory()) {
-			for (File f : file.listFiles()) {
-				// call recursively
-				recursiveDelete(f);
-			}
-		}
-		// call delete to delete files and empty directory
-		file.delete();
-	}
+        // if directory, go inside and call recursively
+        if (file.isDirectory()) {
+            for (File f : file.listFiles()) {
+                // call recursively
+                recursiveDelete(f);
+            }
+        }
+        // call delete to delete files and empty directory
+        file.delete();
+    }
 
-	protected static void deleteDatabase() {
-		File file = new File("target/neo4j-db-test");
+    protected static void deleteDatabase() {
+        File file = new File("target/neo4j-db-test");
 
-		recursiveDelete(file);
-	}
-	
-	protected void seedData(String filename) {
+        recursiveDelete(file);
+    }
 
-		String filePath = this.getClass().getClassLoader().getResource(filename).getFile();
-		JsonStreamFileReader reader = new JsonStreamFileReader(filePath);
+    protected void seedData(String filename) {
 
-		Document doc;
-		Disease disease;
-		Indicator indicator;
+        String filePath = this.getClass().getClassLoader().getResource(filename).getFile();
+        JsonStreamFileReader reader = new JsonStreamFileReader(filePath);
 
-		while ((doc = reader.next()) != null) {
+        Document doc;
+        Disease disease;
+        Indicator indicator;
 
-			disease = this.dbContext.getDiseaseRepo().findByCui(doc.getDiseaseCui());
+        while ((doc = reader.next()) != null) {
 
-			if (disease == null) {
-				disease = new Disease(doc.getDiseaseCui());
-			}
+            disease = this.dbContext.getDiseaseRepo().findByCui(doc.getDiseaseCui());
 
-			for (String name : doc.getDiseaseNames()) {
-				disease.addName(name);
-			}
+            if (disease == null) {
+                disease = new Disease(doc.getDiseaseCui());
+            }
 
-			for (Map.Entry<String, Document.FoundIndicator> entry : doc.getFoundIndicators().entrySet()) {
+            for (String name : doc.getDiseaseNames()) {
+                disease.addName(name);
+            }
 
-				indicator = this.dbContext.getIndicatorRepo().findByCui(entry.getKey());
+            for (Map.Entry<String, Document.FoundIndicator> entry : doc.getFoundIndicators().entrySet()) {
 
-				if (indicator == null) {
-					indicator = new Indicator(entry.getKey());
-				}
+                indicator = this.dbContext.getIndicatorRepo().findByCui(entry.getKey());
 
-				for (String name : entry.getValue().getNames()) {
-					indicator.addName(name);
-				}
+                if (indicator == null) {
+                    indicator = new Indicator(entry.getKey());
+                }
 
-				if (entry.getValue().getIndicatorType() == IndicatorType.SIGN_OR_SYMPTOM) {
-					disease.addSymptomOrSign(indicator);
-				} else if (entry.getValue().getIndicatorType() == IndicatorType.FINDING) {
-					disease.addFinding(indicator);
-				}
-				
-				this.dbContext.getIndicatorRepo().save(indicator);
-			}
-			
-			this.dbContext.getDiseaseRepo().save(disease);
-		}
-	}	
-	
-	protected List<Document> readDocuments(String filename){
-		
-		String filePath = this.getClass().getClassLoader().getResource(filename).getFile();
-		JsonStreamFileReader reader = new JsonStreamFileReader(filePath);
+                for (String name : entry.getValue().getNames()) {
+                    indicator.addName(name);
+                }
 
-		Document doc;
-		List<Document> docs = new ArrayList<Document>();
-		
-		while ((doc = reader.next()) != null) {
-			docs.add(doc);
-		}
-		
-		return docs;
-	}
+                if (entry.getValue().getIndicatorType() == IndicatorType.SIGN_OR_SYMPTOM) {
+                    disease.addSymptomOrSign(indicator);
+                } else if (entry.getValue().getIndicatorType() == IndicatorType.FINDING) {
+                    disease.addFinding(indicator);
+                }
 
-	@Override
-	public void setUp() throws Exception {
-		deleteDatabase();
-	}
+                this.dbContext.getIndicatorRepo().save(indicator);
+            }
 
-	@Override
-	public void tearDown() throws Exception {
-		deleteDatabase();
-	}
+            this.dbContext.getDiseaseRepo().save(disease);
+        }
+    }
+
+    protected List<Document> readDocuments(String filename) {
+
+        String filePath = this.getClass().getClassLoader().getResource(filename).getFile();
+        JsonStreamFileReader reader = new JsonStreamFileReader(filePath);
+
+        Document doc;
+        List<Document> docs = new ArrayList<Document>();
+
+        while ((doc = reader.next()) != null) {
+            docs.add(doc);
+        }
+
+        return docs;
+    }
+
+    @Override
+    public void setUp() throws Exception {
+        deleteDatabase();
+    }
+
+    @Override
+    public void tearDown() throws Exception {
+        deleteDatabase();
+    }
 }

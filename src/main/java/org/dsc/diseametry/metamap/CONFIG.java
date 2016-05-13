@@ -5,11 +5,11 @@ public enum CONFIG {
 
     private String name;
 
-    private CONFIG(String name){
+    private CONFIG(String name) {
         this.name = name;
     }
 
-    public String getName(){
+    public String getName() {
         return this.name;
     }
 }

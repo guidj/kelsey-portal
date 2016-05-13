@@ -14,27 +14,27 @@
 		http://www.springframework.org/schema/tx
 		http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-	<context:spring-configured/>
+    <context:spring-configured/>
     <context:annotation-config/>
-    <context:component-scan base-package="org.dsc.diseametry" />
+    <context:component-scan base-package="org.dsc.diseametry"/>
 
     <neo4j:config storeDirectory="target/neo4j-db-test"
-                  base-package="org.dsc.diseametry.domain" />
- 
+                  base-package="org.dsc.diseametry.domain"/>
+
     <neo4j:repositories base-package="org.dsc.diseametry.repositories"/>
-    <tx:annotation-driven />
+    <tx:annotation-driven/>
 
     <beans>
-<!--     	<bean id="diseaseRepo" class="org.dsc.diseametry">
-    	</bean>
- -->        
-		<!--<bean id="graphDatabaseService" class="org.neo4j.kernel.EmbeddedGraphDatabase"
-		    destroy-method="shutdown">
-			<constructor-arg index="0" value="target/neo4j-db-plain" />
-			 <constructor-arg index="1">
-				<map><entry key="enable_remote_shell" value="true"/></map>
-		    </constructor-arg> 
-		</bean>-->    
+        <!--     	<bean id="diseaseRepo" class="org.dsc.diseametry">
+                </bean>
+         -->
+        <!--<bean id="graphDatabaseService" class="org.neo4j.kernel.EmbeddedGraphDatabase"
+            destroy-method="shutdown">
+            <constructor-arg index="0" value="target/neo4j-db-plain" />
+             <constructor-arg index="1">
+                <map><entry key="enable_remote_shell" value="true"/></map>
+            </constructor-arg>
+        </bean>-->
     </beans>
 </beans>
 

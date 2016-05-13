@@ -33,7 +33,7 @@ public class ServerConfig {
         }
     }
 
-    public String getProperty(CONFIG key){
+    public String getProperty(CONFIG key) {
         return this.properties.getProperty(key.getName());
     }
 }

@@ -10,17 +10,17 @@ import org.springframework.stereotype.Service;
 @Configuration("file:src/main/resources/spring/context.xml")
 public class DbContext {
 
-	@Autowired
-	private DiseaseRepository diseaseRepository;
+    @Autowired
+    private DiseaseRepository diseaseRepository;
 
-	@Autowired
-	private IndicatorRepository indicatorRepository;
+    @Autowired
+    private IndicatorRepository indicatorRepository;
 
-	public DiseaseRepository getDiseaseRepo() {
-		return diseaseRepository;
-	}
+    public DiseaseRepository getDiseaseRepo() {
+        return diseaseRepository;
+    }
 
-	public IndicatorRepository getIndicatorRepo() {
-		return indicatorRepository;
-	}
+    public IndicatorRepository getIndicatorRepo() {
+        return indicatorRepository;
+    }
 }

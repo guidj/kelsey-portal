@@ -1,11 +1,6 @@
 package org.dsc.diseametry.metamap;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
+import gov.nih.nlm.nls.metamap.*;
 import org.dsc.diseametry.data.DataService;
 import org.dsc.diseametry.data.Document;
 import org.dsc.diseametry.data.Document.FoundIndicator;
@@ -18,205 +13,200 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import gov.nih.nlm.nls.metamap.Ev;
-import gov.nih.nlm.nls.metamap.Mapping;
-import gov.nih.nlm.nls.metamap.MetaMapApi;
-import gov.nih.nlm.nls.metamap.MetaMapApiImpl;
-import gov.nih.nlm.nls.metamap.PCM;
-import gov.nih.nlm.nls.metamap.Result;
-import gov.nih.nlm.nls.metamap.Utterance;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class MetaMapNLP {
 
-	private static final org.slf4j.Logger Logger = LoggerFactory.getLogger(MetaMapNLP.class);
+    private static final org.slf4j.Logger Logger = LoggerFactory.getLogger(MetaMapNLP.class);
 
-	private static final String SEMANTIC_TYPES[] = { "sosy", "diap", "dsyn", "fndg", "lbpr", "lbtr" };
-	private static final String UMLS_DISEASE = "dsyn";
-	private MetaMapApi mmapi;
+    private static final String SEMANTIC_TYPES[] = {"sosy", "diap", "dsyn", "fndg", "lbpr", "lbtr"};
+    private static final String UMLS_DISEASE = "dsyn";
+    private MetaMapApi mmapi;
 
-	@Autowired
-	private DataService ds;
+    @Autowired
+    private DataService ds;
 
-	public MetaMapNLP() {
-		this.init();
-	}
+    public MetaMapNLP() {
+        this.init();
+    }
 
-	private void init() {
-		ServerConfig serverConfig = new ServerConfig();
-		this.mmapi = new MetaMapApiImpl(serverConfig.getProperty(CONFIG.HOST));
-		this.mmapi.setOptions("-R SNOMEDCT_US");
-	}
+    private void init() {
+        ServerConfig serverConfig = new ServerConfig();
+        this.mmapi = new MetaMapApiImpl(serverConfig.getProperty(CONFIG.HOST));
+        this.mmapi.setOptions("-R SNOMEDCT_US");
+    }
 
-	public void run(String docPath) {
+    public void run(String docPath) {
 
-		if (this.mmapi == null) {
-			this.init();
-		}
+        if (this.mmapi == null) {
+            this.init();
+        }
 
-		ArrayList<MetaSourceDoc> metaSourceDocs = readJSON(docPath);
-		List<Document> tmpDocs;
-		FoundIndicator tmpFoundIndicator;
-		Document tmpDoc;
-		long index = 1;
-		Logger.info(String.format("Found %d source documents in %s", metaSourceDocs.size(), docPath));
+        ArrayList<MetaSourceDoc> metaSourceDocs = readJSON(docPath);
+        List<Document> tmpDocs;
+        FoundIndicator tmpFoundIndicator;
+        Document tmpDoc;
+        long index = 1;
+        Logger.info(String.format("Found %d source documents in %s", metaSourceDocs.size(), docPath));
 
-		for (MetaSourceDoc metaSourceDoc : metaSourceDocs) {
-			
-			Logger.info(String.format("Reading source doc %d/%d", index, metaSourceDocs.size()));
-			index++;
-			
-			tmpDocs = new ArrayList<Document>();
-			tmpDoc = null;
+        for (MetaSourceDoc metaSourceDoc : metaSourceDocs) {
 
-			Logger.info("Processing disease: " + metaSourceDoc.getName());
-			Logger.info("URL: " + metaSourceDoc.getUrl() + "\n");
+            Logger.info(String.format("Reading source doc %d/%d", index, metaSourceDocs.size()));
+            index++;
 
-			try {
-				Logger.debug("Symptoms:");
-				Logger.debug("-------------");
-				Logger.debug(metaSourceDoc.getSymptoms());
-				Logger.debug("-------------");
-				Logger.debug("Concepts retrieved for disease: " + metaSourceDoc.getName() + "\n");
+            tmpDocs = new ArrayList<Document>();
+            tmpDoc = null;
 
-				ArrayList<Ev> disease_concepts = getUMLSConceptsIn(metaSourceDoc.getName());
-				for (Ev concept : disease_concepts) {
-					Logger.debug("\t\t" + concept.getConceptName() + " (CUI: " + concept.getConceptId() + ") - "
-							+ concept.getSemanticTypes());
-					if (concept.getSemanticTypes().contains(UMLS_DISEASE)) {
-						tmpDoc = new Document();
-						tmpDoc.setDisease(concept.getConceptId());
-						tmpDoc.addDiseaseName(concept.getConceptName());
-						tmpDocs.add(tmpDoc);
-					}
-				}
+            Logger.info("Processing disease: " + metaSourceDoc.getName());
+            Logger.info("URL: " + metaSourceDoc.getUrl() + "\n");
 
-				Logger.debug("-------------");
+            try {
+                Logger.debug("Symptoms:");
+                Logger.debug("-------------");
+                Logger.debug(metaSourceDoc.getSymptoms());
+                Logger.debug("-------------");
+                Logger.debug("Concepts retrieved for disease: " + metaSourceDoc.getName() + "\n");
 
-				Logger.debug("Concepts retrieved for symptoms: \n");
+                ArrayList<Ev> disease_concepts = getUMLSConceptsIn(metaSourceDoc.getName());
+                for (Ev concept : disease_concepts) {
+                    Logger.debug("\t\t" + concept.getConceptName() + " (CUI: " + concept.getConceptId() + ") - "
+                            + concept.getSemanticTypes());
+                    if (concept.getSemanticTypes().contains(UMLS_DISEASE)) {
+                        tmpDoc = new Document();
+                        tmpDoc.setDisease(concept.getConceptId());
+                        tmpDoc.addDiseaseName(concept.getConceptName());
+                        tmpDocs.add(tmpDoc);
+                    }
+                }
 
-				ArrayList<Ev> symptoms_concepts = getUMLSConceptsIn(metaSourceDoc.getSymptoms());
+                Logger.debug("-------------");
 
-				for (Ev concept : symptoms_concepts) {
-					Logger.debug("\t\t" + concept.getConceptName() + " (CUI: " + concept.getConceptId() + ") - "
-							+ concept.getSemanticTypes());
+                Logger.debug("Concepts retrieved for symptoms: \n");
 
-					if (concept.getSemanticTypes().contains(IndicatorType.SIGN_OR_SYMPTOM.toString())) {
-						for (Document doc : tmpDocs) {
-							tmpFoundIndicator = doc.new FoundIndicator();
-							tmpFoundIndicator.setCui(concept.getConceptId());
-							tmpFoundIndicator.addName(concept.getConceptName());
-							tmpFoundIndicator.setIndicatorType(IndicatorType.SIGN_OR_SYMPTOM);
-							doc.addFoundIndicator(tmpFoundIndicator);
-						}
-					}
+                ArrayList<Ev> symptoms_concepts = getUMLSConceptsIn(metaSourceDoc.getSymptoms());
 
-					if (concept.getSemanticTypes().contains(IndicatorType.FINDING.toString())) {
-						for (Document doc : tmpDocs) {
-							tmpFoundIndicator = doc.new FoundIndicator();
-							tmpFoundIndicator.setCui(concept.getConceptId());
-							tmpFoundIndicator.addName(concept.getConceptName());
-							tmpFoundIndicator.setIndicatorType(IndicatorType.FINDING);
-							doc.addFoundIndicator(tmpFoundIndicator);
-						}
-					}
-				}
+                for (Ev concept : symptoms_concepts) {
+                    Logger.debug("\t\t" + concept.getConceptName() + " (CUI: " + concept.getConceptId() + ") - "
+                            + concept.getSemanticTypes());
 
-				ds.indexDocuments(tmpDocs);
+                    if (concept.getSemanticTypes().contains(IndicatorType.SIGN_OR_SYMPTOM.toString())) {
+                        for (Document doc : tmpDocs) {
+                            tmpFoundIndicator = doc.new FoundIndicator();
+                            tmpFoundIndicator.setCui(concept.getConceptId());
+                            tmpFoundIndicator.addName(concept.getConceptName());
+                            tmpFoundIndicator.setIndicatorType(IndicatorType.SIGN_OR_SYMPTOM);
+                            doc.addFoundIndicator(tmpFoundIndicator);
+                        }
+                    }
 
-				Logger.debug("-------------");
+                    if (concept.getSemanticTypes().contains(IndicatorType.FINDING.toString())) {
+                        for (Document doc : tmpDocs) {
+                            tmpFoundIndicator = doc.new FoundIndicator();
+                            tmpFoundIndicator.setCui(concept.getConceptId());
+                            tmpFoundIndicator.addName(concept.getConceptName());
+                            tmpFoundIndicator.setIndicatorType(IndicatorType.FINDING);
+                            doc.addFoundIndicator(tmpFoundIndicator);
+                        }
+                    }
+                }
 
-			} catch (Exception e) {
-				Logger.error("Error performing NLP: " + e.getMessage());
-			}
-		}
-	}
+                ds.indexDocuments(tmpDocs);
 
-	private ArrayList<MetaSourceDoc> readJSON(String file) {
-		JSONParser parser = new JSONParser();
-		ArrayList<MetaSourceDoc> diseases = new ArrayList<MetaSourceDoc>();
+                Logger.debug("-------------");
 
-		try {
+            } catch (Exception e) {
+                Logger.error("Error performing NLP: " + e.getMessage());
+            }
+        }
+    }
 
-			JSONArray jsonArray = (JSONArray) parser.parse(new FileReader(file));
+    private ArrayList<MetaSourceDoc> readJSON(String file) {
+        JSONParser parser = new JSONParser();
+        ArrayList<MetaSourceDoc> diseases = new ArrayList<MetaSourceDoc>();
 
-			for (Object o : jsonArray) {
-				JSONObject article = (JSONObject) o;
+        try {
 
-				if (!article.containsKey("Symptoms")) {
-					continue;
-				}
+            JSONArray jsonArray = (JSONArray) parser.parse(new FileReader(file));
 
-				String url = (String) article.get("URL");
-				String name = (String) article.get("Title");
-				String symptoms = (String) article.get("Symptoms");
+            for (Object o : jsonArray) {
+                JSONObject article = (JSONObject) o;
 
-				diseases.add(new MetaSourceDoc(name, url, symptoms));
-			}
+                if (!article.containsKey("Symptoms")) {
+                    continue;
+                }
 
-		} catch (FileNotFoundException e) {
-			throw new RuntimeException(e);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		} catch (ParseException e) {
-			throw new RuntimeException(e);
-		}
+                String url = (String) article.get("URL");
+                String name = (String) article.get("Title");
+                String symptoms = (String) article.get("Symptoms");
 
-		return diseases;
-	}
+                diseases.add(new MetaSourceDoc(name, url, symptoms));
+            }
 
-	/**
-	 * Method to process the UMLS terms loaded in a disease.
-	 *
-	 * @param input
-	 *            Receives the disease.
-	 * @throws Exception
-	 *             It can throws an exception.
-	 */
-	public ArrayList<Ev> getUMLSConceptsIn(String input) throws Exception {
-		String preprocessedInput = preprocessString(input);
-		ArrayList<Ev> concepts = new ArrayList<Ev>();
-		List<Result> results = this.mmapi.processCitationsFromString(preprocessedInput);
-		for (Result result : results) {
-			for (Utterance utterance : result.getUtteranceList()) {
-				for (PCM pcm : utterance.getPCMList()) {
-					for (Mapping map : pcm.getMappingList()) {
-						for (Ev mapEv : map.getEvList()) {
-							if (isAValidSemanticType(mapEv.getSemanticTypes())) {
-								// Logger.info("utterance:" +
-								// utterance.toString() +"\n"+ "PCM:" +
-								// pcm.getPhrase().toString() + "\n" + "map" +
-								// map.getEvList().toString() + "\n" + "mapEV:"
-								// + mapEv.getConceptName());
-								concepts.add(mapEv);
-							}
-						}
-					}
-				}
-			}
-		}
-		return concepts;
-	}
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
 
-	public String preprocessString(String input) {
-		String filtered = input.replaceAll("[^\\x00-\\x7F]", "");
-		return filtered.toLowerCase();
-	}
+        return diseases;
+    }
 
-	/**
-	 * Method to check if contains a valid semantic type.
-	 *
-	 * @param semanticTypes
-	 *            Receive the list of semantic types of the term.
-	 * @return Return true or false.
-	 */
-	private boolean isAValidSemanticType(List<String> semanticTypes) {
-		for (int i = 0; i < SEMANTIC_TYPES.length; i++) {
-			String validSemanticType = SEMANTIC_TYPES[i];
-			if (semanticTypes.contains(validSemanticType)) {
-				return true;
-			}
-		}
-		return false;
-	}
+    /**
+     * Method to process the UMLS terms loaded in a disease.
+     *
+     * @param input Receives the disease.
+     * @throws Exception It can throws an exception.
+     */
+    public ArrayList<Ev> getUMLSConceptsIn(String input) throws Exception {
+        String preprocessedInput = preprocessString(input);
+        ArrayList<Ev> concepts = new ArrayList<Ev>();
+        List<Result> results = this.mmapi.processCitationsFromString(preprocessedInput);
+        for (Result result : results) {
+            for (Utterance utterance : result.getUtteranceList()) {
+                for (PCM pcm : utterance.getPCMList()) {
+                    for (Mapping map : pcm.getMappingList()) {
+                        for (Ev mapEv : map.getEvList()) {
+                            if (isAValidSemanticType(mapEv.getSemanticTypes())) {
+                                // Logger.info("utterance:" +
+                                // utterance.toString() +"\n"+ "PCM:" +
+                                // pcm.getPhrase().toString() + "\n" + "map" +
+                                // map.getEvList().toString() + "\n" + "mapEV:"
+                                // + mapEv.getConceptName());
+                                concepts.add(mapEv);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return concepts;
+    }
+
+    public String preprocessString(String input) {
+        String filtered = input.replaceAll("[^\\x00-\\x7F]", "");
+        return filtered.toLowerCase();
+    }
+
+    /**
+     * Method to check if contains a valid semantic type.
+     *
+     * @param semanticTypes Receive the list of semantic types of the term.
+     * @return Return true or false.
+     */
+    private boolean isAValidSemanticType(List<String> semanticTypes) {
+        for (int i = 0; i < SEMANTIC_TYPES.length; i++) {
+            String validSemanticType = SEMANTIC_TYPES[i];
+            if (semanticTypes.contains(validSemanticType)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

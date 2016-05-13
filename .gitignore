@@ -20,3 +20,4 @@ dependency-reduced-pom.xml
 *.log
 
 .idea/
+*.iml

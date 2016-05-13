@@ -28,7 +28,7 @@ usage: Diseametry
                     1: For a given disease (CUI), what other diseases have
                     the highest number of common indicators?
                     2: For a given disease (CUI), what indicators connect
-                    a diease to other diseases
+                    it to other diseases
                     3: For an indicator (CUI), what other indicators
                     commonly present in diseases where said indicator is
                     present?

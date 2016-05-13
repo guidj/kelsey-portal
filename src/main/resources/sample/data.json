@@ -1,74 +1,98 @@
 [
-	{
-		"disease": 	{
-			"cui": "C100",
-			"names": ["ictus"]
-		},
-		"indicators": [
-			{
-				"cui": "T400",
-				"names": ["fever"],
-				"type": "fndg"
-			},
-			{
-				"cui": "T401",
-				"names": ["concussion"],
-				"type": "fndg"
-			}			
-		]
-	},
-	{
-		"disease": {
-			"cui": "C101",
-			"names": ["jondis"]
-		},
-		"indicators": [
-			{
-				"cui": "T400",
-				"names": ["fever"],
-				"type": "sosy"
-			},
-			{
-				"cui": "T401",
-				"names": ["swollen"],
-				"type": "fndg"
-			},
-			{
-				"cui": "T402",
-				"names": ["chills"],
-				"type": "sosy"
-			}		
-		]	
-	},
-	{
-		"disease": {
-			"cui": "C102",
-			"names": ["malaria"]
-		},
-		"indicators": [
-			{
-				"cui": "T402",
-				"names": ["chills"],
-				"type": "sosy"
-			},
-			{
-				"cui": "T403",
-				"names": ["weakness"],
-				"type": "sosy"
-			}					
-		]	
-	},
-	{
-		"disease": {
-			"cui": "C103",
-			"names": ["genesis-k14"]
-		},
-		"indicators": [
-			{
-				"cui": "T402",
-				"names": ["calafrios"],
-				"type": "sosy"
-			}
-		]
-	}	
+  {
+    "disease": {
+      "cui": "C100",
+      "names": [
+        "ictus"
+      ]
+    },
+    "indicators": [
+      {
+        "cui": "T400",
+        "names": [
+          "fever"
+        ],
+        "type": "fndg"
+      },
+      {
+        "cui": "T401",
+        "names": [
+          "concussion"
+        ],
+        "type": "fndg"
+      }
+    ]
+  },
+  {
+    "disease": {
+      "cui": "C101",
+      "names": [
+        "jondis"
+      ]
+    },
+    "indicators": [
+      {
+        "cui": "T400",
+        "names": [
+          "fever"
+        ],
+        "type": "sosy"
+      },
+      {
+        "cui": "T401",
+        "names": [
+          "swollen"
+        ],
+        "type": "fndg"
+      },
+      {
+        "cui": "T402",
+        "names": [
+          "chills"
+        ],
+        "type": "sosy"
+      }
+    ]
+  },
+  {
+    "disease": {
+      "cui": "C102",
+      "names": [
+        "malaria"
+      ]
+    },
+    "indicators": [
+      {
+        "cui": "T402",
+        "names": [
+          "chills"
+        ],
+        "type": "sosy"
+      },
+      {
+        "cui": "T403",
+        "names": [
+          "weakness"
+        ],
+        "type": "sosy"
+      }
+    ]
+  },
+  {
+    "disease": {
+      "cui": "C103",
+      "names": [
+        "genesis-k14"
+      ]
+    },
+    "indicators": [
+      {
+        "cui": "T402",
+        "names": [
+          "calafrios"
+        ],
+        "type": "sosy"
+      }
+    ]
+  }
 ]
