@@ -18,7 +18,7 @@
     <context:annotation-config/>
     <context:component-scan base-package="org.dsc.diseametry"/>
 
-    <neo4j:config storeDirectory="target/neo4j-db-plain"
+    <neo4j:config storeDirectory="db/neo4j-db-plain"
                   base-package="org.dsc.diseametry.domain"/>
 
     <neo4j:repositories base-package="org.dsc.diseametry.repositories"/>
