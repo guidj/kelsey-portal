@@ -63,11 +63,11 @@ The following questions need to be answerable with the system:
   - Given an indicator, what other indicators commonly present in diseases where said indicator is present?
 
 ### Data used
-In the example at hand the A.D.A.M. encyclopedia was used. In order to do so we wrote crawler to crawl all articles from this encyclopedia.
+In the example at hand the A.D.A.M. encyclopedia was used. In order to do so we wrote a crawler to crawl all articles from this encyclopedia.
 The crawler can be found [here](https://github.com/ph1l337/adam-crawler "A.D.A.M. Crawler").
 From the obtained articles we only considered the ones that have a symptoms section in order to introduce as few a possible noise.
 
-In general this application is intended for any document that contain information on diseases and their related symptoms/signs and/or findings, like research papers, web pages or encyclopedias,.
+In general this application is intended for any document that contains information on diseases and their related symptoms/signs and/or findings, like research papers, web pages or encyclopedias,.
 
 Since the documents are annotated with UMLS/SNOMED notations, we first to understand some relevant vocabulary for it.
 
