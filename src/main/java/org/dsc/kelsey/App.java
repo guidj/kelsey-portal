@@ -27,7 +27,7 @@ public class App {
 
     private static void usage(Options options) {
         HelpFormatter hf = new HelpFormatter();
-        hf.printHelp("Diseametry", options);
+        hf.printHelp("Kelsey Portal", options);
     }
 
     @SuppressWarnings("resource")

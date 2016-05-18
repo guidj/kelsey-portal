@@ -15,7 +15,7 @@ mvn clean package
 ## Usage
 
 ```
-usage: Diseametry
+usage: Kelsey Portal 
  -c,--cui <arg>     CUI of disease or indicator (symptom or sign or
                     finding)
  -f,--feed <arg>    Feed [file] annotated data into neo4j. After seeding,
