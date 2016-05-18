@@ -1,7 +1,4 @@
-# Diseametry
-
-[GitHub Repository](https://github.com/guidj/diseametry "Diseametry")
-
+# [Kelsey](https://www.wikiwand.com/en/Frances_Oldham_Kelsey) Portal
 
 ## Building
 
