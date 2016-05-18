@@ -1,16 +1,21 @@
-package org.dsc.diseametry.domain;
+package org.dsc.kelsey.domain;
 
-import org.dsc.diseametry.Utils;
+import org.dsc.kelsey.Utils;
+import org.neo4j.graphdb.Direction;
 import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.NodeEntity;
+import org.springframework.data.neo4j.annotation.RelatedTo;
 import org.springframework.data.neo4j.support.index.IndexType;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @NodeEntity
-public class Indicator {
+public class Disease {
+
+    public static final String HAS_SYMPTOM_OR_SIGN = "HAS_SYM_OR_SIGN";
+    public static final String HAS_FINDING = "HAS_FINDING";
 
     @GraphId
     private Long id;
@@ -21,10 +26,17 @@ public class Indicator {
     @Indexed(indexType = IndexType.LABEL)
     private Set<String> names;
 
-    public Indicator() {
+    @RelatedTo(type = HAS_SYMPTOM_OR_SIGN, direction = Direction.OUTGOING)
+    Set<Indicator> symptoms;
+
+    @RelatedTo(type = HAS_FINDING, direction = Direction.OUTGOING)
+    Set<Indicator> findings;
+
+    public Disease() {
+
     }
 
-    public Indicator(String cui) {
+    public Disease(String cui) {
         this.cui = cui;
     }
 
@@ -33,7 +45,23 @@ public class Indicator {
     }
 
     public String getCui() {
-        return cui;
+        return this.cui;
+    }
+
+    public void addSymptomOrSign(Indicator indicator) {
+        if (this.symptoms == null) {
+            this.symptoms = new HashSet<Indicator>();
+        }
+
+        this.symptoms.add(indicator);
+    }
+
+    public void addFinding(Indicator finding) {
+        if (this.findings == null) {
+            this.findings = new HashSet<Indicator>();
+        }
+
+        this.findings.add(finding);
     }
 
     public void addName(String name) {
@@ -46,6 +74,14 @@ public class Indicator {
 
     public Set<String> getNames() {
         return this.names;
+    }
+
+    public Set<Indicator> getSymptoms() {
+        return this.symptoms;
+    }
+
+    public Set<Indicator> getFindings() {
+        return this.findings;
     }
 
     @Override
@@ -64,7 +100,7 @@ public class Indicator {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Indicator other = (Indicator) obj;
+        Disease other = (Disease) obj;
         if (cui == null) {
             if (other.cui != null)
                 return false;
@@ -75,7 +111,7 @@ public class Indicator {
 
     @Override
     public String toString() {
-        return String.format("Indicator(cui=%s, names=[%s])", this.getCui(),
+        return String.format("Disease(cui=%s, names=[%s])", this.getCui(),
                 Utils.collectionToString(this.getNames().toArray(new String[0])));
     }
 }

@@ -1,4 +1,4 @@
-package org.dsc.diseametry.metamap;
+package org.dsc.kelsey.metamap;
 
 public class MetaSourceDoc {
 

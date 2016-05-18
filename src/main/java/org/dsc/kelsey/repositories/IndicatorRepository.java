@@ -1,7 +1,7 @@
-package org.dsc.diseametry.repositories;
+package org.dsc.kelsey.repositories;
 
-import org.dsc.diseametry.data.IndicatorWithScoreDTO;
-import org.dsc.diseametry.domain.Indicator;
+import org.dsc.kelsey.data.IndicatorWithScoreDTO;
+import org.dsc.kelsey.domain.Indicator;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.data.repository.query.Param;

@@ -16,12 +16,12 @@
 
     <context:spring-configured/>
     <context:annotation-config/>
-    <context:component-scan base-package="org.dsc.diseametry"/>
+    <context:component-scan base-package="org.dsc.kelsey"/>
 
     <neo4j:config storeDirectory="db/neo4j-db-plain"
-                  base-package="org.dsc.diseametry.domain"/>
+                  base-package="org.dsc.kelsey.domain"/>
 
-    <neo4j:repositories base-package="org.dsc.diseametry.repositories"/>
+    <neo4j:repositories base-package="org.dsc.kelsey.repositories"/>
     <tx:annotation-driven/>
 
     <beans>

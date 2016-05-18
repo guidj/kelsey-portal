@@ -1,7 +1,7 @@
-package org.dsc.diseametry;
+package org.dsc.kelsey;
 
-import org.dsc.diseametry.repositories.DiseaseRepository;
-import org.dsc.diseametry.repositories.IndicatorRepository;
+import org.dsc.kelsey.repositories.DiseaseRepository;
+import org.dsc.kelsey.repositories.IndicatorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;

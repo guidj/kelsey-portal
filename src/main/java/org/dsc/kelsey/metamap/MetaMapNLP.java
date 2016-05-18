@@ -1,10 +1,10 @@
-package org.dsc.diseametry.metamap;
+package org.dsc.kelsey.metamap;
 
 import gov.nih.nlm.nls.metamap.*;
-import org.dsc.diseametry.data.DataService;
-import org.dsc.diseametry.data.Document;
-import org.dsc.diseametry.data.Document.FoundIndicator;
-import org.dsc.diseametry.domain.IndicatorType;
+import org.dsc.kelsey.data.DataService;
+import org.dsc.kelsey.data.Document;
+import org.dsc.kelsey.data.Document.FoundIndicator;
+import org.dsc.kelsey.domain.IndicatorType;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;

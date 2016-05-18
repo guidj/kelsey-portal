@@ -1,6 +1,6 @@
-package org.dsc.diseametry.test;
+package org.dsc.kelsey.test;
 
-import org.dsc.diseametry.data.IndicatorWithScoreDTO;
+import org.dsc.kelsey.data.IndicatorWithScoreDTO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.LoggerFactory;

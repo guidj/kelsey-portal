@@ -1,7 +1,7 @@
-package org.dsc.diseametry.data;
+package org.dsc.kelsey.data;
 
 import org.apache.commons.io.IOUtils;
-import org.dsc.diseametry.domain.IndicatorType;
+import org.dsc.kelsey.domain.IndicatorType;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.LoggerFactory;

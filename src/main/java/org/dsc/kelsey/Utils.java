@@ -1,4 +1,4 @@
-package org.dsc.diseametry;
+package org.dsc.kelsey;
 
 import java.util.List;
 

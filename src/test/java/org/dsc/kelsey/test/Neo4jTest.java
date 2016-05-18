@@ -1,12 +1,12 @@
-package org.dsc.diseametry.test;
+package org.dsc.kelsey.test;
 
 import junit.framework.TestCase;
-import org.dsc.diseametry.DbContext;
-import org.dsc.diseametry.data.Document;
-import org.dsc.diseametry.data.JsonStreamFileReader;
-import org.dsc.diseametry.domain.Disease;
-import org.dsc.diseametry.domain.Indicator;
-import org.dsc.diseametry.domain.IndicatorType;
+import org.dsc.kelsey.DbContext;
+import org.dsc.kelsey.data.Document;
+import org.dsc.kelsey.data.JsonStreamFileReader;
+import org.dsc.kelsey.domain.Disease;
+import org.dsc.kelsey.domain.Indicator;
+import org.dsc.kelsey.domain.IndicatorType;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;

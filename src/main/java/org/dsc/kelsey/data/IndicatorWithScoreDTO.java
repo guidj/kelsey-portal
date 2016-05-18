@@ -1,22 +1,23 @@
-package org.dsc.diseametry.data;
+package org.dsc.kelsey.data;
 
-import org.dsc.diseametry.domain.Disease;
+import org.dsc.kelsey.domain.Indicator;
 import org.springframework.data.neo4j.annotation.QueryResult;
 import org.springframework.data.neo4j.annotation.ResultColumn;
 
+
 @QueryResult
-public class DiseaseWithScoreDTO {
-    @ResultColumn("disease")
-    private Disease disease;
+public class IndicatorWithScoreDTO {
+    @ResultColumn("indicator")
+    private Indicator indicator;
     @ResultColumn("score")
     private Integer score;
 
-    public Disease getDisease() {
-        return disease;
+    public Indicator getIndicator() {
+        return indicator;
     }
 
-    public void setDisease(Disease disease) {
-        this.disease = disease;
+    public void setIndicator(Indicator indicator) {
+        this.indicator = indicator;
     }
 
     public Integer getScore() {

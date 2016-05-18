@@ -1,4 +1,4 @@
-package org.dsc.diseametry.test;
+package org.dsc.kelsey.test;
 
 import org.apache.commons.io.IOUtils;
 import org.slf4j.LoggerFactory;

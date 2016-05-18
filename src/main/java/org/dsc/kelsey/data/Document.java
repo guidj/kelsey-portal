@@ -1,6 +1,6 @@
-package org.dsc.diseametry.data;
+package org.dsc.kelsey.data;
 
-import org.dsc.diseametry.domain.IndicatorType;
+import org.dsc.kelsey.domain.IndicatorType;
 
 import java.util.HashMap;
 import java.util.HashSet;

@@ -1,4 +1,4 @@
-package org.dsc.diseametry.metamap;
+package org.dsc.kelsey.metamap;
 
 import org.apache.log4j.Logger;
 

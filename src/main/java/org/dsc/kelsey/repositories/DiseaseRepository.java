@@ -1,9 +1,9 @@
-package org.dsc.diseametry.repositories;
+package org.dsc.kelsey.repositories;
 
-import org.dsc.diseametry.data.DiseasePairWithScoreDTO;
-import org.dsc.diseametry.data.DiseaseWithScoreDTO;
-import org.dsc.diseametry.data.IndicatorWithScoreDTO;
-import org.dsc.diseametry.domain.Disease;
+import org.dsc.kelsey.data.DiseasePairWithScoreDTO;
+import org.dsc.kelsey.data.DiseaseWithScoreDTO;
+import org.dsc.kelsey.data.IndicatorWithScoreDTO;
+import org.dsc.kelsey.domain.Disease;
 import org.springframework.data.neo4j.annotation.Query;
 import org.springframework.data.neo4j.repository.GraphRepository;
 import org.springframework.data.repository.query.Param;

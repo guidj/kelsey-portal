@@ -1,6 +1,6 @@
-package org.dsc.diseametry.data;
+package org.dsc.kelsey.data;
 
-import org.dsc.diseametry.domain.Disease;
+import org.dsc.kelsey.domain.Disease;
 import org.springframework.data.neo4j.annotation.QueryResult;
 import org.springframework.data.neo4j.annotation.ResultColumn;
 

@@ -1,9 +1,9 @@
-package org.dsc.diseametry.data;
+package org.dsc.kelsey.data;
 
-import org.dsc.diseametry.DbContext;
-import org.dsc.diseametry.domain.Disease;
-import org.dsc.diseametry.domain.Indicator;
-import org.dsc.diseametry.domain.IndicatorType;
+import org.dsc.kelsey.DbContext;
+import org.dsc.kelsey.domain.Disease;
+import org.dsc.kelsey.domain.Indicator;
+import org.dsc.kelsey.domain.IndicatorType;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

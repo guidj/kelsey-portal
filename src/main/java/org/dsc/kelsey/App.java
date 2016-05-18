@@ -1,12 +1,12 @@
-package org.dsc.diseametry;
+package org.dsc.kelsey;
 
 import org.apache.commons.cli.*;
-import org.dsc.diseametry.data.DiseasePairWithScoreDTO;
-import org.dsc.diseametry.data.DiseaseWithScoreDTO;
-import org.dsc.diseametry.data.IndicatorWithScoreDTO;
-import org.dsc.diseametry.domain.Disease;
-import org.dsc.diseametry.domain.Indicator;
-import org.dsc.diseametry.metamap.MetaMapNLP;
+import org.dsc.kelsey.data.DiseasePairWithScoreDTO;
+import org.dsc.kelsey.data.DiseaseWithScoreDTO;
+import org.dsc.kelsey.data.IndicatorWithScoreDTO;
+import org.dsc.kelsey.domain.Disease;
+import org.dsc.kelsey.domain.Indicator;
+import org.dsc.kelsey.metamap.MetaMapNLP;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

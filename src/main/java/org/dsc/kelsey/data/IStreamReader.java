@@ -1,4 +1,4 @@
-package org.dsc.diseametry.data;
+package org.dsc.kelsey.data;
 
 public interface IStreamReader {
 
