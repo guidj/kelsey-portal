@@ -32,7 +32,7 @@ usage: Kelsey Portal
                     4: Which diseases are most similar to each other
                     (share indicators) (No CUI)?
                     5: List diseases (No CUI)
-                    5: List indicators (No CUI)
+                    6: List indicators (No CUI)
  -s,--skip <arg>    Results offset. Default 0
 ```
 
